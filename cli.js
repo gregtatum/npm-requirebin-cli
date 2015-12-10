@@ -45,12 +45,19 @@ return  Promisify(GithubAuthentication)( authOptions )
 })
 
 function showHelp() {
+	var packageJson = require('./package.json')
+	
 	console.log([
+		"",
 		"Usage:",
 		"  requirebin [source.js] [package.json]",
 		"",
 		"Options:",
 		"  -h        show help message",
+		"",
+		"Version:",
+		"  "+ packageJson.name +" v" + packageJson.version,
+		
 	].join('\n'))
 }
 
