@@ -1,0 +1,35 @@
+{
+  "name": "@tatumcreative/requirebin-cli",
+  "version": "1.0.0",
+  "description": "A CLI to publish directly to requirebin",
+  "main": "cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "requirebin": "cli"
+  },
+  "author": "Greg Tatum",
+  "license": "MIT",
+  "dependencies": {
+    "browser-module-sandbox": "^1.4.0",
+    "envify": "^3.4.0",
+    "ghauth": "^3.0.0",
+    "github-api": "^0.10.7",
+    "hihat": "^2.5.0",
+    "minimist": "^1.2.0",
+    "pify": "^2.3.0",
+    "uglify-js": "^2.6.1"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TatumCreative/npm-requirebin-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TatumCreative/npm-requirebin-cli/issues"
+  },
+  "homepage": "https://github.com/TatumCreative/npm-requirebin-cli#readme"
+}

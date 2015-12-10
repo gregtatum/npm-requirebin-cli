@@ -1,0 +1,15 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bunny.js",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bunny": "^1.0.1",
+    "glam": "^0.2.0"
+  },
+  "id": "19338dbac4542bc5b6f7",
+  "requireBinUrl": "http://requirebin.com/?gist=19338dbac4542bc5b6f7",
+  "gistUrl": "https://gist.github.com/TatumCreative/19338dbac4542bc5b6f7"
+}
