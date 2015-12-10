@@ -18,6 +18,7 @@
     "github-api": "^0.10.7",
     "hihat": "^2.5.0",
     "minimist": "^1.2.0",
+    "npm-execspawn": "^1.2.1",
     "pify": "^2.3.0",
     "uglify-js": "^2.6.1"
   },

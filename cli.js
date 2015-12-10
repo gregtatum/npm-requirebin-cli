@@ -3,7 +3,10 @@
 var GithubAuthentication = require('ghauth')
 var Promisify = require('pify')
 var GetCLIArgs = require('minimist')
-var Execute = require('child_process').exec
+var Execute = require('npm-execspawn')
+
+console.log('')
+
 
 var authOptions = {
 	configName : 'requirebin-cli',
@@ -19,19 +22,22 @@ return  Promisify(GithubAuthentication)( authOptions )
 	
 	var args = GetCLIArgs( process.argv.slice(2) )
 	var source = args._[0]
-	var package = args._[1]
+	var packageJson = args._[1]
 	var help = args.h
 	
-	if( help || !source || !package ) {
+	if( help || !source || !packageJson ) {
 		showHelp()
 		return
 	}
 	
-	var command = "hihat '"+ __dirname +"/bundle-upload.js' --exec --node -- "+
-		"-t [ envify --SOURCE "+source+" --PACKAGE "+package+" ]"
+	var command = "hihat '"+ __dirname +"/bundle-upload.js' --exec --quit --node -- "+
+		"-t [ envify --SOURCE "+source+" --PACKAGE "+packageJson+" ]"
+
+	console.log("Loading up electron to perform its magic")
 	
 	var hihat = Execute( command )
 	hihat.stdout.pipe(process.stdout)
+	hihat.stderr.pipe(process.stderr)
 
 })
 .catch(function(err) {

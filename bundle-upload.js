@@ -8,10 +8,16 @@ var GithubAuthentication = require('ghauth')
 var Promisify = require('pify')
 var SaveGist = require('./save-gist')
 
-;(function main() {
+try {
+	main()
+} catch (err) {
+	console.log("There was an error trying to use requirebin cli.")
+	console.log(err)
+	window.close()
+}
 
-	console.log('')
-		
+function main() {
+
 	var div = document.createElement('div')
 	document.body.appendChild( div )
 	
@@ -24,6 +30,7 @@ var SaveGist = require('./save-gist')
 		iframeStyle: 'body, html { height: 100% width: 100% }'
 	})
 	
+	console.log('Initializing bundler')
 	setTimeout(function delayForDatabaseInitialization() {
 		
 		var config = getCurrentConfiguration()
@@ -39,7 +46,7 @@ var SaveGist = require('./save-gist')
 	}, 1000)
 	
 	
-})()
+}
 
 function getCurrentConfiguration() {
 	
