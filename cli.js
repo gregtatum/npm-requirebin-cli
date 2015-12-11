@@ -4,6 +4,8 @@ var GithubAuthentication = require('ghauth')
 var Promisify = require('pify')
 var GetCLIArgs = require('minimist')
 var Execute = require('npm-execspawn')
+var ReadFile = require('fs').readFileSync
+var WriteFile = require('fs').writeFileSync
 
 console.log('')
 
@@ -30,8 +32,17 @@ return  Promisify(GithubAuthentication)( authOptions )
 		return
 	}
 	
-	var command = "hihat '"+ __dirname +"/bundle-upload.js' --exec --quit --node -- "+
-		"-t [ envify --SOURCE "+source+" --PACKAGE "+packageJson+" ]"
+	var sourceScriptPath = __dirname +"/bundle-upload.js"
+	var targetScriptPath = __dirname +"/bundle-upload-args.js"
+	
+	// Manually replace the values in the script for hihat.
+	// This is a total hack
+	var script = ReadFile( sourceScriptPath, 'utf8' )	
+	script = script.replace('"{{SOURCE}}"', JSON.stringify(source))
+	script = script.replace('"{{PACKAGE}}"', JSON.stringify(packageJson))
+	WriteFile( targetScriptPath, script )
+	
+	var command = "hihat '"+ targetScriptPath +"' --exec --quit --node"
 
 	console.log("Loading up electron to perform its magic")
 	
@@ -42,6 +53,9 @@ return  Promisify(GithubAuthentication)( authOptions )
 })
 .catch(function(err) {
 	console.log(err)
+	if( typeof err === 'object') {
+		console.log(err.stack)
+	}
 })
 
 function showHelp() {

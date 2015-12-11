@@ -8,6 +8,10 @@ var GithubAuthentication = require('ghauth')
 var Promisify = require('pify')
 var SaveGist = require('./save-gist')
 
+// This gets replaced when run
+var SOURCE = "{{SOURCE}}"
+var PACKAGE = "{{PACKAGE}}"
+
 try {
 	main()
 } catch (err) {
@@ -51,8 +55,8 @@ function main() {
 function getCurrentConfiguration() {
 	
 	// Use envify to replace process.env values with the args from ./cli.js
-	var source = ReadFile( process.env.SOURCE, 'utf8' )
-	var packageText = ReadFile( process.env.PACKAGE, 'utf8' )
+	var source = ReadFile( SOURCE, 'utf8' )
+	var packageText = ReadFile( PACKAGE, 'utf8' )
 	var packageJson = JSON.parse( packageText )
 	
 	return {
