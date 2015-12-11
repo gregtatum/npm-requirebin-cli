@@ -1,6 +1,6 @@
 {
   "name": "@tatumcreative/requirebin-cli",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A CLI to publish directly to requirebin",
   "main": "cli.js",
   "scripts": {
