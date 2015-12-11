@@ -13,7 +13,6 @@
   "license": "MIT",
   "dependencies": {
     "browser-module-sandbox": "^1.4.0",
-    "envify": "^3.4.0",
     "ghauth": "^3.0.0",
     "github-api": "^0.10.7",
     "hihat": "^2.5.0",
@@ -21,9 +20,6 @@
     "npm-execspawn": "^1.2.1",
     "pify": "^2.3.0",
     "uglify-js": "^2.6.1"
-  },
-  "directories": {
-    "example": "example"
   },
   "repository": {
     "type": "git",

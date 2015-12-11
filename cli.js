@@ -6,6 +6,7 @@ var GetCLIArgs = require('minimist')
 var Execute = require('npm-execspawn')
 var ReadFile = require('fs').readFileSync
 var WriteFile = require('fs').writeFileSync
+var Path = require('path')
 
 console.log('')
 
@@ -23,8 +24,8 @@ return  Promisify(GithubAuthentication)( authOptions )
 	console.log("You are authenticated to post gists as " + githubAuth.user)
 	
 	var args = GetCLIArgs( process.argv.slice(2) )
-	var source = args._[0]
-	var packageJson = args._[1]
+	var source = Path.resolve( args._[0] )
+	var packageJson = Path.resolve( args._[1] )
 	var help = args.h
 	
 	if( help || !source || !packageJson ) {
@@ -40,12 +41,16 @@ return  Promisify(GithubAuthentication)( authOptions )
 	var script = ReadFile( sourceScriptPath, 'utf8' )	
 	script = script.replace('"{{SOURCE}}"', JSON.stringify(source))
 	script = script.replace('"{{PACKAGE}}"', JSON.stringify(packageJson))
-	WriteFile( targetScriptPath, script )
+	
+	try {
+		WriteFile( targetScriptPath, script )
+	} catch(err) {
+		console.log("Unable to write intermediary script file")
+		throw err
+	}
 	
 	var command = "hihat '"+ targetScriptPath +"' --exec --quit --node"
 
-	console.log("Loading up electron to perform its magic")
-	
 	var hihat = Execute( command )
 	hihat.stdout.pipe(process.stdout)
 	hihat.stderr.pipe(process.stderr)
@@ -74,6 +79,3 @@ function showHelp() {
 		
 	].join('\n'))
 }
-
-
-

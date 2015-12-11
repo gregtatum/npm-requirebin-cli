@@ -54,7 +54,6 @@ function main() {
 
 function getCurrentConfiguration() {
 	
-	// Use envify to replace process.env values with the args from ./cli.js
 	var source = ReadFile( SOURCE, 'utf8' )
 	var packageText = ReadFile( PACKAGE, 'utf8' )
 	var packageJson = JSON.parse( packageText )
@@ -110,7 +109,7 @@ function handleBundleEnd( config, githubConnection, bundle ) {
 		
 		var requireBinUrl = "http://requirebin.com/?gist=" + userName + "/" + newGist.id
 		var gistUrl = "https://gist.github.com/" + userName + "/" + newGist.id
-				
+
 		if( newGist.id != config.packageJson.id ) {
 			
 			config.packageJson.id = newGist.id
@@ -118,10 +117,16 @@ function handleBundleEnd( config, githubConnection, bundle ) {
 			config.packageJson.gistUrl = gistUrl
 			
 			var newJson = JSON.stringify( config.packageJson, null, '  ' )
-			WriteFile( process.env.PACKAGE, newJson )
+			try {
+				WriteFile( PACKAGE, newJson )
+				console.log('Finished saving package.json')				
+			} catch( error ) {
+				console.log('Unable to save package.json')
+				console.log( error )
+			}
+			
 		}
 		
-		console.log('Finished saving package.json')
 		console.log("---------------------------------------------")
 		console.log("RequireBin:", requireBinUrl)
 		console.log("Gist:", gistUrl)
